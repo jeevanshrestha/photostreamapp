@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Capture Photo</title>
-
-    <script type="text/javascript" charset="utf-8" src="cordova-2.6.0.js"></script>
-    <script type="text/javascript" charset="utf-8">
-
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
 
@@ -28,16 +20,17 @@
 
       // Get image handle
       //
-      var smallImage = document.getElementById('smallImage');
+      var camImage = document.getElementById('displayImage');
 
       // Unhide image elements
       //
-      smallImage.style.display = 'block';
+      camImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
+      camImage.src = "data:image/jpeg;base64," + imageData;
+      document.getElementById('upload-button').style.display='block';
     }
 
     // Called when a photo is successfully retrieved
@@ -48,16 +41,16 @@
 
       // Get image handle
       //
-      var largeImage = document.getElementById('largeImage');
+      var libImage = document.getElementById('displayImage');
 
       // Unhide image elements
       //
-      largeImage.style.display = 'block';
+      libImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       //
-      largeImage.src = imageURI;
+      libImage.src = imageURI;
     }
 
     // A button will call this function
@@ -80,7 +73,7 @@
     //
     function getPhoto(source) {
       // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 100, 
         destinationType: destinationType.FILE_URI,
         sourceType: source });
     }
@@ -90,15 +83,3 @@
     function onFail(message) {
       alert('Failed because: ' + message);
     }
-
-    </script>
-  </head>
-  <body>
-    <button onclick="capturePhoto();">Capture Photo</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-  </body>
-</html>
